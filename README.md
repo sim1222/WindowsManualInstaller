@@ -1,5 +1,6 @@
 # WindowsManualInstaller
-Windows Manually Install bat
+Windows Manually Install bat<br>
+<font color="Red">**BIOS ver has not been tested**</font>
 
 ## How To Use
 - Correct wim Image
