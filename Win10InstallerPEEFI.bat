@@ -2,7 +2,7 @@
 :Ver
 cls
 echo ********************************************
-echo *Windows 10 1803 PE用 Windowsインストーラー*
+echo *Windows 10 1803 Winpe-tch用 Windowsインストーラー for UEFI*
 echo ********************************************
 echo Ver.1.0
 echo.
@@ -14,7 +14,7 @@ rem -----------------------------------------------------
 echo.
 color C
 set Start=
-set /P Start="このインストーラーは即席仕様のゴミです。何が起こっても自己責任で使用してください。同意しますか？ (Y/N)"
+set /P Start="このインストーラーは即席仕様です。何が起こっても自己責任で使用してください。同意しますか？ (Y/N)"
 if "%Start%" == "" (
   goto :Start
 )
@@ -111,38 +111,11 @@ rem -----------------------------------------------------
 
 :regedit
 echo.
-color C
-echo ここからは手動です。指示に従って操作してください。
-echo.
-color
-start regedit
-echo HKEY_LOCAL_MACHINEを選択してください
-echo.
-rem pause 
-echo ファイル(F)→ハイブの読み込み から C:\Windows\System32\config\SOFTWARE を読み込んでください。名前はSOFT
-echo.
-rem pause
-rem echo ファイル(F)→ハイブの読み込み から C:\Windows\System32\config\SYSTEM を読み込んでください。名前はSYS
-echo.
-rem pause
-echo HKEY_LOCAL_MACHINE\SOFT\Microsoft\Windows\CurrentVersion\Policies\System に移動してください
-echo.
-rem pause
-echo 右クリック→新規→DWORD(32ビット)値 名前を VerboseStatus 値を 1
-echo.
-rem pause
-echo EnableCursorSuppression の値を 0
-rem echo ===================================================
-rem echo.
-rem echo ファイル(F)→ハイブの読み込み から C:\Windows\System32\config\SYSTEM を読み込んでください。名前はSYS
-rem echo.
-rem echo HKEY_LOCAL_MACHINE\SYS\Setup に移動してください
-rem echo.
-rem echo CmdLine の値を cmd.exe
-pause
 
-
-
+reg load HKLM\SOFT %syschr%:\Windows\System32\config\SOFTWARE
+reg add HKLM\SOFT\Microsoft\Windows\CurrentVersion\Policies\System /v VerboseStatus /t REG_DWORD /d 1
+reg add HKLM\SOFT\Microsoft\Windows\CurrentVersion\Policies\System /v EnableCursorSuppression /t REG_DWORD /d 0
+reg unload HKLM\SOFT
 
 goto :end
 
