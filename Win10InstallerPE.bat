@@ -101,7 +101,11 @@ echo.
 echo インストールを開始します...
 dism /apply-image /imagefile:%wimpath% /index:1 /applydir:%syschr%:\
 bootsect /nt60 %syschr%: /mbr
-
+bcdboot %syschr%: /s %syschr%:
+bootrec /fixmbr
+bootrec /fixboot
+bootrec /scanos
+bootrec /rebuildbcd
 goto :regedit
 
 rem -----------------------------------------------------
