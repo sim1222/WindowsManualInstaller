@@ -103,7 +103,7 @@ rem -----------------------------------------------------
 echo.
 echo インストールを開始します...
 dism /apply-image /imagefile:%wimpath% /index:1 /applydir:%syschr%:\
-bcdboot %syschr%:\Windows /s W:
+bcdboot %syschr%:\Windows /s W: /f UEFI
 
 goto :regedit
 
