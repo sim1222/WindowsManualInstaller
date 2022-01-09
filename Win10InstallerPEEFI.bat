@@ -45,7 +45,7 @@ rem -----------------------------------------------------
 echo lis vol | diskpart
 echo.
 set syschr=
-SET /P syschr="上記を確認し、上記に存在しない任意のドライブレターを 大文字 半角 英字 1文字 で入力してください (例: C )"
+SET /P syschr="上記を確認し、上記に存在しない任意のドライブレターを 大文字 半角 英字 1文字 で入力してください W, Xは使用しないでください (例: C )"
 if "%syschr%" == "" (
   goto :syschrcheck
 )
@@ -99,10 +99,19 @@ goto :install
 
 rem -----------------------------------------------------
 
+
+:wimselect
+dism /get-wiminfo /imagefile:%wimpath% 
+set wimnum=
+set /P wimnum="インストールしたいOSのWIM番号を入力してください。 (例: 1 )"
+
+rem -----------------------------------------------------
+
+
 :install
 echo.
 echo インストールを開始します...
-dism /apply-image /imagefile:%wimpath% /index:1 /applydir:%syschr%:\
+dism /apply-image /imagefile:%wimpath% /index:%wimnum% /applydir:%syschr%:\
 bcdboot %syschr%:\Windows /s W: /f UEFI
 
 goto :regedit
