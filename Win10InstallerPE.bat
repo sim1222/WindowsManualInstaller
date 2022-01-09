@@ -101,7 +101,7 @@ if "%wimpath%" == "" (
   goto :wimpath
 )
 
-goto :install
+goto :wimselect
 
 rem -----------------------------------------------------
 
@@ -109,6 +109,11 @@ rem -----------------------------------------------------
 dism /get-wiminfo /imagefile:%wimpath% 
 set wimnum=
 set /P wimnum="インストールしたいOSのWIM番号を入力してください。 (例: 1 )"
+if "%wimnum%" == "" (
+  goto :wimselect
+)
+
+goto :install
 
 rem -----------------------------------------------------
 
