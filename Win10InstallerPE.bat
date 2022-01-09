@@ -106,7 +106,7 @@ goto :wimselect
 rem -----------------------------------------------------
 
 :wimselect
-dism /get-wiminfo /imagefile:%wimpath% 
+dism /get-wiminfo /wimfile:%wimpath% 
 set wimnum=
 set /P wimnum="インストールしたいOSのWIM番号を入力してください。 (例: 1 )"
 if "%wimnum%" == "" (
